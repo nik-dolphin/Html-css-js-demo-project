@@ -43,6 +43,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
   // create array variable
   var dataArray = [];
   const updateData = JSON.parse(localStorage.getItem("EmployeeData"));
+  console.log(updateData);
   // store form detail into data variable
   const data = {
     emp_id: `${emp_id.value}`,
@@ -53,17 +54,21 @@ document.querySelector("form").addEventListener("submit", (e) => {
   };
   // check data is empty or not
   if (emp_id.value && emp_name.value && emp_gender.value && emp_salary.value) {
-        updateData.map((items) => {
-          if (items.emp_id === employeeID) {
-            // call update function
-            updateEmployeeRow();
-          }
-        });
+    if (updateData !== null) {
+      updateData.map((items) => {
+        if (items.emp_id === employeeID) {
+          // call update function
+          updateEmployeeRow();
+        }
+      });
+    }
     if (emp_id.value !== employeeID) {
-      for (let i = 0; i < updateData.length; i++) {
-        if (updateData[i].emp_id === emp_id.value) {
-          alert("User Id already used, Try different !");
-          return (emp_id.value = "");
+      if (updateData !== null) {
+        for (let i = 0; i < updateData.length; i++) {
+          if (updateData[i].emp_id === emp_id.value) {
+            alert("User Id already used, Try different !");
+            return (emp_id.value = "");
+          }
         }
       }
       // form validation
